@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Configuration;
 using Viewport = Microsoft.Xna.Framework.Graphics.Viewport;
 
 namespace ShapeBlaster
@@ -44,6 +45,7 @@ namespace ShapeBlaster
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
+			Input.Update();
 			EntityManager.Update();
 			// TODO: Add your update logic here
 
@@ -56,6 +58,9 @@ namespace ShapeBlaster
 
 			_spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
 			EntityManager.Draw(_spriteBatch);
+
+			// draw the customer mouse cursor
+			_spriteBatch.Draw(Art.Pointer, Input.MousePosition, Color.White);
 			_spriteBatch.End();
 			// TODO: Add your drawing code here
 
