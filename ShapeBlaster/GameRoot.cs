@@ -27,6 +27,7 @@ namespace ShapeBlaster
 		{
 			// TODO: Add your initialization logic here
 
+			// The base.Initialize() method will call the LoadContent() method of the Game class. So anything that depends on content being loaded should go after the call to base.Initialize(). I will clarify this in the tutorial.
 			base.Initialize();
 
 			EntityManager.Add(PlayerShip.Instance);

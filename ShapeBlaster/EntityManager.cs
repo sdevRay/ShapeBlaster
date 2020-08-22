@@ -12,6 +12,8 @@ namespace ShapeBlaster
 		static List<Entity> addedEntities = new List<Entity>();
 		public static int Count { get { return entities.Count(); } }
 
+		//Remember, if you modify a list while iterating over it, you will get an exception.The above code takes care of this by queuing up any entities added during updating in a separate list, and adding them after it finishes updating the existing entities
+
 		public static void Add(Entity entity)
 		{
 			if (!isUpdating)

@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ShapeBlaster
 {
+	//All our entities(enemies, bullets and the player's ship) have some basic properties such as an image and a position. IsExpired will be used to indicate that the entity has been destroyed and should be removed from any lists holding a reference to it.
+
 	abstract class Entity
 	{
 		protected Texture2D image;
