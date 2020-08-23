@@ -7,7 +7,7 @@ namespace ShapeBlaster
 		public Bullet(Vector2 position, Vector2 velocity)
 		{
 			image = Art.Bullet;
-			Posisiton = position;
+			Position = position;
 			Velocity = velocity;
 			Orientation = Velocity.ToAngle();
 			Radius = 8;
@@ -21,10 +21,10 @@ namespace ShapeBlaster
 				Orientation = Velocity.ToAngle();
 			}
 
-			Posisiton += Velocity;
+			Position += Velocity;
 
 			// delete bullets that go off-screen
-			if (!GameRoot.Viewport.Bounds.Contains(Posisiton.ToPoint()))
+			if (!GameRoot.Viewport.Bounds.Contains(Position.ToPoint()))
 				IsExpired = true;
 		}
 	}

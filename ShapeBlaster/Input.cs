@@ -99,7 +99,7 @@ namespace ShapeBlaster
 
 		private static Vector2 GetMouseAimDirection()
 		{
-			Vector2 direction = MousePosition - PlayerShip.Instance.Posisiton;
+			Vector2 direction = MousePosition - PlayerShip.Instance.Position;
 
 			if(direction == Vector2.Zero)
 			{

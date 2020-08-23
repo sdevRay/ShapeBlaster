@@ -11,7 +11,7 @@ namespace ShapeBlaster
 
 		protected Color color = Color.White;
 
-		public Vector2 Posisiton, Velocity;
+		public Vector2 Position, Velocity;
 		public float Orientation;
 		public float Radius = 20; // used for circular collision detection
 		public bool IsExpired; // true if the entity was destroyed and should be deleted
@@ -27,7 +27,7 @@ namespace ShapeBlaster
 		public abstract void Update();
 		public virtual void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(image, Posisiton, null, color, Orientation, Size / 2f, 1f, SpriteEffects.None, 0);
+			spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, 1f, SpriteEffects.None, 0);
 		}
 	}
 }

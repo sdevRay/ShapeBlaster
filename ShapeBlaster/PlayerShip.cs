@@ -7,28 +7,28 @@ namespace ShapeBlaster
 {
 	class PlayerShip : Entity
 	{
-		private static PlayerShip _instance;
 		const int cooldownFrames = 6;
 		int cooldownRemaining = 0;
 		static Random rand = new Random();
 
+		private static PlayerShip instance;
 		public static PlayerShip Instance
 		{
 			get
 			{
-				if(_instance == null)
+				if(instance == null)
 				{
-					_instance = new PlayerShip();
+					instance = new PlayerShip();
 				}
 
-				return _instance;
+				return instance;
 			}
 		}
 
 		private PlayerShip()
 		{
 			image = Art.Player;
-			Posisiton = GameRoot.ScreenSize / 2;
+			Position = GameRoot.ScreenSize / 2;
 			Radius = 10;
 		}
 
@@ -37,8 +37,8 @@ namespace ShapeBlaster
 			// This will make the ship move at a speed up to eight pixels per frame, clamp its position so it can't go off-screen, and rotate the ship to face the direction it's moving.
 			const float speed = 8;
 			Velocity = speed * Input.GetMovementDirection();
-			Posisiton += Velocity;
-			Posisiton = Vector2.Clamp(Posisiton, Size / 2, GameRoot.ScreenSize - Size / 2);
+			Position += Velocity;
+			Position = Vector2.Clamp(Position, Size / 2, GameRoot.ScreenSize - Size / 2);
 
 			if(Velocity.LengthSquared() > 0)
 			{
@@ -62,10 +62,10 @@ namespace ShapeBlaster
 				Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 11f);
 
 				Vector2 offset = Vector2.Transform(new Vector2(25, -8), aimQuat);
-				EntityManager.Add(new Bullet(Posisiton + offset, vel));
+				EntityManager.Add(new Bullet(Position + offset, vel));
 
 				offset = Vector2.Transform(new Vector2(25, 8), aimQuat);
-				EntityManager.Add(new Bullet(Posisiton + offset, vel));
+				EntityManager.Add(new Bullet(Position + offset, vel));
 			}
 
 			if(cooldownRemaining > 0)
