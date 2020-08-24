@@ -1,4 +1,5 @@
-﻿using SharpDX;
+﻿using Microsoft.Xna.Framework.Graphics;
+using SharpDX;
 using System;
 using Quaternion = Microsoft.Xna.Framework.Quaternion;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -7,6 +8,9 @@ namespace ShapeBlaster
 {
 	class PlayerShip : Entity
 	{
+		int framesUntilRespawn = 0;
+		public bool IsDead { get { return framesUntilRespawn > 0; } }
+
 		const int cooldownFrames = 6;
 		int cooldownRemaining = 0;
 		static Random rand = new Random();
@@ -32,8 +36,19 @@ namespace ShapeBlaster
 			Radius = 10;
 		}
 
+		public void Kill()
+		{
+			framesUntilRespawn = 60;
+		}
+
 		public override void Update()
 		{
+			if (IsDead)
+			{
+				framesUntilRespawn--;
+				return;
+			}
+
 			// This will make the ship move at a speed up to eight pixels per frame, clamp its position so it can't go off-screen, and rotate the ship to face the direction it's moving.
 			const float speed = 8;
 			Velocity = speed * Input.GetMovementDirection();
@@ -45,7 +60,6 @@ namespace ShapeBlaster
 				// ToAngle() is a simple extension method defined in our Extensions class like so:
 				Orientation = Velocity.ToAngle();
 			}
-
 
 			// This code creates two bullets that travel parallel to each other. It adds a small amount of randomness to the direction. This makes the shots spread out a little bit like a machine gun. We add two random numbers together because this makes their sum more likely to be centered (around zero) and less likely to send bullets far off. We use a quaternion to rotate the initial position of the bullets in the direction they're travelling.
 
@@ -72,7 +86,14 @@ namespace ShapeBlaster
 			{
 				cooldownRemaining--;
 			}
+		}
 
+		public override void Draw(SpriteBatch spriteBatch)
+		{
+			if (!IsDead)
+			{
+				base.Draw(spriteBatch);
+			}
 		}
 	}
 }

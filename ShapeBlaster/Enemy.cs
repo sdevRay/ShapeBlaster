@@ -40,6 +40,13 @@ namespace ShapeBlaster
 			}
 		}
 
+		//This method will push the current enemy away from the other enemy.The closer they are, the harder it will be pushed, because the magnitude of (d / d.LengthSquared()) is just one over the distance.
+		public void HandleCollision(Enemy other)
+		{
+			var d = Position - other.Position;
+			Velocity += 10 * d / (d.LengthSquared() + 1);
+		}
+
 		public static Enemy CreateSeeker(Vector2 position)
 		{
 			var enemy = new Enemy(Art.Seeker, position);
