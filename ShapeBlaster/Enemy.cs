@@ -10,6 +10,7 @@ namespace ShapeBlaster
 		private static Random rand = new Random();
 		private int timeUntilStart = 60;
 		public bool IsActive { get { return timeUntilStart <= 0; } }
+		public int PointValue { get; private set; }
 
 		//Note that a behaviour has the type IEnumerator<int>, not IEnumerable<int>. You can think of the IEnumerable as the template for the behaviour and the IEnumerator as the running instance. The IEnumerator remembers where we are in the behaviour and will pick up where it left off when you call its MoveNext() method. Each frame we'll go through all the behaviours the enemy has and call MoveNext() on each of them. If MoveNext() returns false, it means the behaviour has completed so we should remove it from the list.
 		private List<IEnumerator<int>> behaviours = new List<IEnumerator<int>>();
@@ -50,6 +51,7 @@ namespace ShapeBlaster
 		public static Enemy CreateSeeker(Vector2 position)
 		{
 			var enemy = new Enemy(Art.Seeker, position);
+			enemy.PointValue = 1;
 			enemy.AddBehaviour(enemy.FollowPlayer());
 
 			return enemy;
@@ -58,6 +60,7 @@ namespace ShapeBlaster
 		public static Enemy CreateWanderer(Vector2 position)
 		{
 			var enemy = new Enemy(Art.Wanderer, position);
+			enemy.PointValue = 2;
 			enemy.AddBehaviour(enemy.MoveRandomly());
 
 			return enemy;
@@ -166,6 +169,8 @@ namespace ShapeBlaster
 		public void WasShot()
 		{
 			IsExpired = true;
+			PlayerStatus.AddPoints(PointValue);
+			PlayerStatus.IncreaseMultiplier();
 		}
 	}
 }

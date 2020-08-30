@@ -39,12 +39,20 @@ namespace ShapeBlaster
 		public void Kill()
 		{
 			framesUntilRespawn = 60;
+			EnemySpawner.Reset();
+			PlayerStatus.RemoveLife();
 		}
 
 		public override void Update()
 		{
 			if (IsDead)
 			{
+				if(PlayerStatus.Lives == 0)
+				{
+					PlayerStatus.Reset();
+					Position = GameRoot.ScreenSize / 2;
+				}
+
 				framesUntilRespawn--;
 				return;
 			}
