@@ -38,22 +38,22 @@ namespace ShapeBlaster
 
 		public void Kill()
 		{
-			framesUntilRespawn = 60;
-			EnemySpawner.Reset();
 			PlayerStatus.RemoveLife();
+			framesUntilRespawn = PlayerStatus.IsGameOver ? 300 : 120;
 		}
 
 		public override void Update()
 		{
 			if (IsDead)
 			{
-				if(PlayerStatus.Lives == 0)
+				if (--framesUntilRespawn == 0)
 				{
-					PlayerStatus.Reset();
-					Position = GameRoot.ScreenSize / 2;
+					if (PlayerStatus.Lives == 0)
+					{
+						PlayerStatus.Reset();
+						Position = GameRoot.ScreenSize / 2;
+					}
 				}
-
-				framesUntilRespawn--;
 				return;
 			}
 

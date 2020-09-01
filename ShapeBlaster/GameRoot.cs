@@ -68,14 +68,27 @@ namespace ShapeBlaster
 
 			// draw the UI
 			_spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
+
 			_spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
 			DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
 			DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35);
 
 			// draw the customer mouse cursor
 			_spriteBatch.Draw(Art.Pointer, Input.MousePosition, Color.White);
-			base.Draw(gameTime);
+
+			if (PlayerStatus.IsGameOver)
+			{
+				string text = "Game Over\n" +
+					"Your Score: " + PlayerStatus.Score + "\n" +
+					"High Score: " + PlayerStatus.HighScore;
+
+				Vector2 textSize = Art.Font.MeasureString(text);
+				_spriteBatch.DrawString(Art.Font, text, ScreenSize / 2 - textSize, Color.White);
+			}
+
 			_spriteBatch.End();
+
+			base.Draw(gameTime);
 		}
 
 		// DrawRightAlignedString() is a helper method for drawing text aligned on the right side of the screen. 
