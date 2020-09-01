@@ -88,6 +88,9 @@ namespace ShapeBlaster
 
 				offset = Vector2.Transform(new Vector2(25, 8), aimQuat);
 				EntityManager.Add(new Bullet(Position + offset, vel));
+
+				// To play sounds in XNA, you can simply call the Play() method on a SoundEffect. This method also provides an overload that allows you to adjust the volume, pitch and pan of the sound. A trick to make our sounds more varied is to adjust these quantities on each play.
+				Sound.Shot.Play(0.2f, rand.NextFloat(-0.2f, 0.2f), 0);
 			}
 
 			if(cooldownRemaining > 0)

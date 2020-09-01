@@ -169,6 +169,10 @@ namespace ShapeBlaster
 		public void WasShot()
 		{
 			IsExpired = true;
+
+			// To play sounds in XNA, you can simply call the Play() method on a SoundEffect. This method also provides an overload that allows you to adjust the volume, pitch and pan of the sound. A trick to make our sounds more varied is to adjust these quantities on each play.
+			Sound.Explosion.Play(0.5f, rand.NextFloat(-0.2f, 0.2f), 0);
+
 			PlayerStatus.AddPoints(PointValue);
 			PlayerStatus.IncreaseMultiplier();
 		}

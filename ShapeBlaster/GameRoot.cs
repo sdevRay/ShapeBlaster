@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using Viewport = Microsoft.Xna.Framework.Graphics.Viewport;
 
 namespace ShapeBlaster
@@ -20,25 +21,24 @@ namespace ShapeBlaster
 			Instance = this;
 			_graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
-			IsMouseVisible = true;
+			IsMouseVisible = false;
 		}
 
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
-
 			// The base.Initialize() method will call the LoadContent() method of the Game class. So anything that depends on content being loaded should go after the call to base.Initialize(). I will clarify this in the tutorial.
 			base.Initialize();
 
 			EntityManager.Add(PlayerShip.Instance);
+			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Play(Sound.Music);
 		}
 
 		protected override void LoadContent()
 		{
 			_spriteBatch = new SpriteBatch(GraphicsDevice);
 			Art.Load(Content);
-
-			// TODO: use this.Content to load your game content here
+			Sound.Load(Content);
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -52,7 +52,6 @@ namespace ShapeBlaster
 			EntityManager.Update();
 			EnemySpawner.Update();
 			PlayerStatus.Update();
-			// TODO: Add your update logic here
 
 			base.Update(gameTime);
 		}
